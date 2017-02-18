@@ -1,0 +1,32 @@
+{
+  "name": "proteccionista.com.ar",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jperelli/proteccionista-server.git"
+  },
+  "author": "Julian Perelli (http://jperelli.com.ar/)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jperelli/proteccionista-server/issues"
+  },
+  "homepage": "https://github.com/jperelli/proteccionista-server#readme",
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "morgan": "~1.7.0",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.2",
+    "sequelize-cli": "^2.5.1",
+    "serve-favicon": "~2.3.2"
+  }
+}
