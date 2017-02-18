@@ -5,7 +5,7 @@ if [ -z "$ENV" ]; then
   ENV=development
 fi
 
-if [ "$ENV" -ne "development" -a "$ENV" -ne "production" ]; then
+if [ "$ENV" != "development" -a "$ENV" != "production" ]; then
   echo "ERROR: ENV var should be 'development' or 'production' (or empty='production')"
   exit 1
 fi

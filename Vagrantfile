@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: "mkdir -p /app"
   config.vm.synced_folder ".", "/app/repo"
-  config.vm.provision "shell", path: "Vagrant_provision.sh"
+  config.vm.provision "shell", path: "Vagrant_provision.sh", env: {"ENV" => ENV['ENV']}
 
   config.vm.provider :virtualbox do |vb, override|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
