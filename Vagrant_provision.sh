@@ -45,7 +45,7 @@ set -e
 (cd /app/repo && npm install --verbose)
 
 ## run migrations
-(cd /app/repo/ && node_modules/.bin/sequelize db:migrate)
+(cd /app/repo/ && NODE_ENV="$ENV" node_modules/.bin/sequelize db:migrate)
 
 ## add a user maybe?
 #echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | $MANAGE shell ; true
@@ -80,7 +80,7 @@ HEREDOC
 [Service]
 ExecStart=/app/repo/bin/www
 Restart=always
-Environment=NODE_ENV=development
+Environment=NODE_ENV=production
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=node-proteccionista
