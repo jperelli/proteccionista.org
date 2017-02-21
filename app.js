@@ -28,12 +28,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// workaround when browser does not send Origin header.
+// Read this https://github.com/expressjs/cors/issues/71
+app.use(function(req,res,next){ req.headers.origin = req.headers.origin || req.headers.host; next(); })
+
 // TODO: move this whitelist to config
 var whitelist = ['http://localhost:8081', 'https://proteccionista.org']
 var corsOptions = {
   origin: function (origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1
-    callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted)
+    callback(originIsWhitelisted ? null : 'Blocked by CORS', originIsWhitelisted)
   }
 };
 app.use(cors(corsOptions));
