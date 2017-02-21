@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){ req.headers.origin = req.headers.origin || req.headers.host; next(); })
 
 // TODO: move this whitelist to config
-var whitelist = ['http://localhost:8081', 'https://proteccionista.org']
+var whitelist = ['localhost:8080', 'localhost:8081', 'https://proteccionista.org/', 'proteccionista.org']
 var corsOptions = {
   origin: function (origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1
