@@ -5,7 +5,8 @@
     "database": "proteccionista_development",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "typeValidation": true
+    "typeValidation": true,
+    "jwtSecret": "0uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk50uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk5"
   },
   "test": {
     "username": "postgres",
@@ -13,7 +14,8 @@
     "database": "proteccionista_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "typeValidation": true
+    "typeValidation": true,
+    "jwtSecret": "0uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk50uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk5"
   },
   "production": {
     "username": "postgres",
@@ -21,6 +23,7 @@
     "database": "proteccionista_production",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "typeValidation": true
+    "typeValidation": true,
+    "jwtSecret": "0uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk50uT4ZRYSmog4Y63VV4uzCbCLOt2mHU8v3polZPDrkcADoRn7dhdVzFvxvplH8CofRg7sSa4u2Q2CGAjx4mZeDsnuHDBDCnW33RYPDZuhEhTefJmwpBcWXk4zSOwbFVVHNpC4SGdXRdUYRyt7Q1HEVQh0NPF1nAyVeHwUlhn3dFip7z294vf04TxzBp9VxHyEX69ozCvdWrxANYhrSueiK3GFSo14jaqzy9fImnybeBVOZDIRPyg48QxHIQJdNnk5"
   }
 }
