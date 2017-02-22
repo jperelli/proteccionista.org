@@ -33,11 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){ req.headers.origin = req.headers.origin || req.headers.host; next(); })
 
 // TODO: move this whitelist to config
-var whitelist = ['localhost:8080', 'localhost:8081', 'https://proteccionista.org/', 'proteccionista.org']
+var whitelist = ['localhost:8080', 'localhost:8081', 'http://localhost:8081', 'https://proteccionista.org/', 'proteccionista.org']
 var corsOptions = {
   origin: function (origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1
-    callback(originIsWhitelisted ? null : 'Blocked by CORS', originIsWhitelisted)
+    callback(originIsWhitelisted ? null : 'Blocked by CORS: '+origin, originIsWhitelisted)
   }
 };
 app.use(cors(corsOptions));
