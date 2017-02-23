@@ -7,6 +7,7 @@ var db = require('../models');
 var env = process.env.NODE_ENV || 'development';
 var config = require('../config/config.json')[env];
 var passport = require('passport');
+var sequelize = require('sequelize');
 
 
 router.get('/jwt', function(req, res, next) {
@@ -39,27 +40,49 @@ router.get('/jwt', function(req, res, next) {
 
 
 function mergeObject(target) {
-    for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-        for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-                target[key] = source[key];
-            }
-        }
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+    for (var key in source) {
+      if (source.hasOwnProperty(key)) {
+        target[key] = source[key];
+      }
     }
-    return target;
+  }
+  return target;
 }
 
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-  axios.get(
-    'https://graph.facebook.com/v2.8/me/accounts?limit=100&access_token=' + req.user.fb_access_token
-  ).then(function(response) {
-    var pages = response.data.data.map(x => ({id:x.id, name:x.name}));
-    var ret = Object.assign({}, {pages:pages}, req.user.get());
-    res.json(ret);
-  }).catch(function(error){
-    res.status(500).json({message:error})
-  })
+  res.json(req.user.get());
+});
+
+router.post('/groups/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+  if ( req.user.fb_groups.indexOf(req.body.id) == -1) {
+    return req.user.update(
+      {
+        fb_groups: sequelize.fn('array_append',  sequelize.col('fb_groups'), req.body.id )
+      }, {returning: true}
+    ).then(function(instance) {
+      res.json(instance.fb_groups);
+    }).catch(function(error) {
+      res.status(500).json({message: error})
+    })
+  }
+  res.json(req.user.fb_groups)
+});
+
+router.delete('/groups/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+  if ( req.user.fb_groups.indexOf(req.params.id) != -1) {
+    return req.user.update(
+      {
+        fb_groups: sequelize.fn('array_remove',  sequelize.col('fb_groups'), req.params.id )
+      }, {returning: true}
+    ).then(function(instance) {
+      res.json(instance.fb_groups);
+    }).catch(function(error) {
+      res.status(500).json({message: error})
+    })
+  }
+  res.json(req.user.fb_groups)
 });
 
 module.exports = router;
