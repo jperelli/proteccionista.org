@@ -26,7 +26,10 @@ router.get('/jwt', function(req, res, next) {
         res.json({jwt: jsonwebtoken.sign({uid: user.id}, config.jwtSecret)});
       } else {
         return user.updateAttributes(userData).then(function (user) {
-          res.json({jwt: jsonwebtoken.sign({uid: user.id}, config.jwtSecret)});
+          res.json({
+            jwt: jsonwebtoken.sign({uid: user.id}, config.jwtSecret),
+            user: user
+          });
         });
       }
     })
