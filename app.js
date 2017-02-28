@@ -9,6 +9,7 @@ var passport = require('passport');
 
 var index = require('./routes/index');
 var profile = require('./routes/profile');
+var fbcase = require('./routes/fbcase');
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config.json')[env];
 
@@ -71,6 +72,7 @@ app.use('/v1/profile', profile);
 app.use('/v1/animals', router_factory(db.Animal));
 app.use('/v1/cases', router_factory(db.Case));
 app.use('/v1/issues', router_factory(db.Issue));
+app.use('/v1/fbcases', fbcase);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

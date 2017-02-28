@@ -1,7 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Case = sequelize.define('Case', {
-    id_facebook: DataTypes.ARRAY(DataTypes.STRING),
     title: DataTypes.STRING,
     description: DataTypes.STRING
   }, {
