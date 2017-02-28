@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Case.hasMany(models.Issue);
+        Case.hasMany(models.FbCase, {foreignKey: 'created_by_user_id'});
         Case.belongsTo(models.Animal);
       }
     }

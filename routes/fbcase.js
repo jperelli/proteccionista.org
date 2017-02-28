@@ -10,14 +10,22 @@ var passport = require('passport');
 
 
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-  db.FbCase.findAll({where:{id_facebook:{$like: req.query.id_group+'_%',}}}).then(function(objs) {
+  db.FbCase.findAll({
+    where: {id_facebook:{$like: req.query.id_group+'_%',}},
+    include: [{model: db.User, as: 'created_by_user', attributes: ['name', 'fb_id']}]
+  }).then(function(objs) {
     if (objs === null) return res.json([])
     res.json(objs);
   }).catch(function(err){console.error(err); return res.status(500).json({name:err.name,message:err.message})});
 });
 
 router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
-  db.FbCase.create(req.body).then(function(obj) {
+  var fbcase = {
+    id_facebook: req.body.id_facebook,
+    case_id: req.body.case_id ? req.body.case_id : null,
+    created_by_user_id: req.user.id
+  }
+  db.FbCase.create(fbcase).then(function(obj) {
     res.location(req.originalUrl + '/' + obj.id);
     res.status(201).json(obj);
   }).catch(function(err){console.error(err); return res.status(500).json({name:err.name,message:err.message})});

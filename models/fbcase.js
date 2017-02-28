@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         FbCase.belongsTo(models.Case);
+        FbCase.belongsTo(models.User, {foreignKey: 'created_by_user_id', as: 'created_by_user'});
       }
     }
   });

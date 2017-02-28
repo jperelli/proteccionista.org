@@ -43,6 +43,22 @@ module.exports = {
           }
         );
       }).then(function () {
+        return queryInterface.addColumn(
+          'FbCases',
+          'created_by_user_id',
+          {
+            type: Sequelize.INTEGER,
+            references: {
+              model: "Users",
+              key: "id"
+            },
+            allowNull: true
+          },
+          {
+            transaction: t
+          }
+        );
+      }).then(function () {
         return queryInterface.removeColumn(
           'Cases',
           'id_facebook',
