@@ -27,7 +27,6 @@ module.exports = function(Entity) {
   });
 
   router.get('/:id/', function(req, res, next) {
-    console.log(req.params.id)
     Entity.findOne({where:{id:req.params.id}}).then(function(obj) {
       if (!obj) return res.status(404).json({message:'Not Found'});
       res.json(obj);
