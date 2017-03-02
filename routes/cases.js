@@ -5,7 +5,7 @@ var passport = require('passport');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  db.Case.findAll({order: [['updated_at', 'DESC']]}).then(function(objs) {
+  db.Case.findAll({order: [['date', 'DESC']]}).then(function(objs) {
     res.json(objs);
   }).catch(function(err){return res.status(500).json({message:err.message})});
 });
