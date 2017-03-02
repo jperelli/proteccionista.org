@@ -29,7 +29,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key a
 wget https://deb.nodesource.com/setup_6.x -O- | sudo bash
 
 # Install base packages
-apt -y install nodejs postgresql-9.6 postgresql-client
+apt -y install nodejs postgresql-9.6 postgresql-9.6-postgis-2.3 postgresql-client
 
 # Configure pgsql
 echo "local all postgres trust" > /etc/postgresql/9.6/main/pg_hba.conf
@@ -39,6 +39,7 @@ service postgresql restart
 # create database
 set +e
 su postgres -c "createdb $DB_NAME"
+su postgres -c "echo 'create extension postgis' | psql $DB_NAME"
 set -e
 
 # Install base app packages

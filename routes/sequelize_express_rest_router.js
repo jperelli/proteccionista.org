@@ -1,4 +1,5 @@
 var express = require('express');
+var Sequelize = require('sequelize');
 
 module.exports = function(Entity) {
   var router = express.Router();
@@ -34,10 +35,27 @@ module.exports = function(Entity) {
   });
 
   router.post('/', function(req, res, next) {
-    Entity.create(req.body).then(function(obj) {
-      res.location(req.originalUrl + '/' + obj.id);
-      res.status(201).json(obj);
-    }).catch(function(err){console.error(err); return res.status(500).json({name:err.name,message:err.message})});
+    //return res.json()
+    var includes = []
+    for (var aname in Entity.associations) {
+      if (req.body[aname]) {
+        includes.push({model:Entity.associations[aname].target, as: aname, include:includes2})
+      }
+    }
+    return Entity.sequelize.transaction({
+      isolationLevel: 'SERIALIZABLE'
+    }, function (t) {
+      return Entity.create(req.body, {include: includes, transaction: t}).then(function(obj) {
+        res.location(req.originalUrl + '/' + obj.id);
+        res.status(201).json(obj);
+      }).catch(function(err){console.error(err); return res.status(500).json({name:err.name,message:err.message})});
+    }).then(function(result) {
+      res.status(201).json('ok')
+      // transaction has been committed. Do something after the commit if required.
+    }).catch(function(err) {
+      console.error(err); return res.status(500).json({name:err.name,message:err.message})
+      // do something with the err.
+    });
   });
 
   router.patch('/:id/', function(req, res, next) {
