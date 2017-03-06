@@ -7,6 +7,7 @@ var db = require('../models');
 var env = process.env.NODE_ENV || 'development';
 var config = require('../config/config.json')[env];
 var passport = require('passport');
+var permission = require('permission');
 
 
 router.get('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
@@ -19,7 +20,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function(req, 
   }).catch(function(err){console.error(err); return res.status(500).json({name:err.name,message:err.message})});
 });
 
-router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), permission(['admin']), function(req, res, next) {
   var fbcase = {
     id_facebook: req.body.id_facebook,
     case_id: req.body.case_id ? req.body.case_id : null,

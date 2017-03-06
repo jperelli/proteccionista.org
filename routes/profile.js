@@ -8,6 +8,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../config/config.json')[env];
 var passport = require('passport');
 var sequelize = require('sequelize');
+var permission = require('permission');
 
 
 router.get('/jwt', function(req, res, next) {
@@ -58,7 +59,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function(req, 
   res.json(req.user.get());
 });
 
-router.post('/groups/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.post('/groups/', passport.authenticate('jwt', { session: false }), permission(['admin']), function(req, res, next) {
   if ( req.user.fb_groups.indexOf(req.body.id) == -1) {
     return req.user.update(
       {
@@ -73,7 +74,7 @@ router.post('/groups/', passport.authenticate('jwt', { session: false }), functi
   res.json(req.user.fb_groups)
 });
 
-router.delete('/groups/:id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.delete('/groups/:id', passport.authenticate('jwt', { session: false }), permission(['admin']), function(req, res, next) {
   if ( req.user.fb_groups.indexOf(req.params.id) != -1) {
     return req.user.update(
       {

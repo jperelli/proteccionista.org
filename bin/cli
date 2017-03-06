@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+var argv = require('yargs').argv;
+var db = require('../models')
+var sequelize = require('sequelize');
+
+if (argv.users) {
+  db.User.findAll({order: [['id','desc']]}).then(function(users) {
+    console.log(users.map(u => ({'id': u.id, 'name': u.name, 'fb_id':u.fb_id, 'capabilities':u.capabilities})))
+  })
+}
+
+if (parseInt(argv.user) > 0 && argv.addcapability) {
+  db.User.find({where: {id: argv.user}}).then(function(user) {
+    user.update({
+      capabilities: sequelize.fn('array_append',  sequelize.col('capabilities'), argv.addcapability )
+    }).then(function() {
+      console.log('OK: capability "'+argv.addcapability+'" added to user ' + user.id + ':' + user.name)
+    })
+  })
+}
+
+if (parseInt(argv.user) > 0 && argv.rmcapability) {
+  db.User.find({where: {id: argv.user}}).then(function(user) {
+    user.update({
+      capabilities: sequelize.fn('array_remove',  sequelize.col('capabilities'), argv.rmcapability )
+    }).then(function() {
+      console.log('OK: capability "'+argv.rmcapability+'" removed from user ' + user.id + ':' + user.name)
+    })
+  })
+}

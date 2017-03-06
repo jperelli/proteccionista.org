@@ -6,12 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 var passport = require('passport');
+var permission = require('permission');
 
 var index = require('./routes/index');
 var profile = require('./routes/profile');
 var fbcase = require('./routes/fbcase');
 var cases = require('./routes/cases');
-var animalsSearchTerms = require('./routes/animalsSearchTerms')
+var animals = require('./routes/animals');
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config.json')[env];
 
@@ -63,9 +64,11 @@ passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, done) {
     }
   }).catch(function(err) {
     console.log(err)
-    return done(err, false);
+    done(err, false);
   });
 }));
+
+app.set('permission', {role: 'capabilities'})
 
 var db = require('./models')
 var router_factory = require('./routes/sequelize_express_rest_router')
@@ -73,9 +76,7 @@ app.use('/v1/', index);
 app.use('/v1/profile', profile);
 app.use('/v1/cases', cases);
 app.use('/v1/fbcases', fbcase);
-app.use('/v1/animals/searchTerms', animalsSearchTerms)
-app.use('/v1/animals', router_factory(db.Animal));
-app.use('/v1/issues', router_factory(db.Issue));
+app.use('/v1/animals', animals);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

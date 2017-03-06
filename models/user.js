@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     fb_id: DataTypes.STRING,
     fb_access_token: DataTypes.STRING,
-    fb_groups: DataTypes.ARRAY(DataTypes.STRING)
+    fb_groups: DataTypes.ARRAY(DataTypes.STRING),
+    capabilities: DataTypes.ARRAY(DataTypes.STRING)
   }, {
     underscored: true
   });

@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('../models');
 var passport = require('passport');
+var permission = require('permission');
 
 var router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), permission(['admin']), function(req, res, next) {
   console.log(req.body)
   // animal, case, user, fbcase
   db.Case.sequelize.transaction({
